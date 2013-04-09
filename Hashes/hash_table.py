@@ -132,4 +132,5 @@ def test_hash():
         show_value(htable, ckey)
 
 if __name__ == '__main__':
+    # launch ops
     test_hash()
