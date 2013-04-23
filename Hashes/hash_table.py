@@ -12,12 +12,12 @@ class KeyNotFound(Exception):
         """ctor"""
         super(KeyNotFound, self).__init__(value)
         self.value = value
-    
+
     def __str__(self):
         """error str"""
         return ''.join(["key not found: ", self.value])
 
-    
+
 class KeyValue:
     """class to represent each entry in hash table"""
 
@@ -34,7 +34,6 @@ class HashTable:
 
     def __init__(self):
         """ctor for HashTable"""
-        
         # empty list
         self.hash_table = list()
 
@@ -49,7 +48,6 @@ class HashTable:
 
     def get_value(self, key):
         """get value for key"""
-        
         #get index of key
         idx = self.get_index(key)
 
@@ -64,11 +62,9 @@ class HashTable:
 
     def set_keyvalue(self, key, value):
         """add (key,value) in hash table"""
-        
         # obtain index from key
         idx = self.get_index(key)
 
-        
         # insert KeyValue at idx position, dealing with collisions
 
         # see if this bucket already contains the key
@@ -89,7 +85,6 @@ class HashTable:
                 continue
 
             print "{0} ---> {1}".format(idx, [(item.key, item.value) for item in self.hash_table[idx]])
-        
         print "----------------------------"
 
 

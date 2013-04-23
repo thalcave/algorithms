@@ -8,7 +8,7 @@ from ctypes import c_ulong
 def ulong(i):
     """gets the value from c_ulong"""
 
-    return c_ulong(i).value  # numpy would be better if available
+    return c_ulong(i).value
 
 def sdbm(to_hash):
     """transforms a string into a hash(long)"""
@@ -17,10 +17,8 @@ def sdbm(to_hash):
     ret_hash = 0
 
     for mchar in to_hash:
-        ret_hash = ulong(ord(mchar) + ulong(ret_hash << 6) + 
+        ret_hash = ulong(ord(mchar) + ulong(ret_hash << 6) +
                          ulong(ret_hash << 16) - ret_hash)
- 
-
     return ret_hash
 
 if __name__ == '__main__':
