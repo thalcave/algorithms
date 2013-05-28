@@ -12,8 +12,8 @@ def get_sum(number, limit):
     #first, obtain the quotient
     quotient = int(limit/number)
     #get sum 1+2+..+quotient
-    tmp = quotient * (quotient+1)/2
-    return number * tmp
+    tmp = quotient * (quotient+1) * 0.5
+    return int(number * tmp)
 
 def find_sum(limit):
     """Find the sum of all the multiples of 3 or 5 below limit"""
@@ -21,8 +21,16 @@ def find_sum(limit):
     result = get_sum(3, limit-1)
     #for multiples of 5
     result += get_sum(5, limit-1)
-    return result
+    #get multiple of 15
+    sum_15 = get_sum(15, limit-1)
+    return result-sum_15
 
+def inefficient_sum(limit):
+    result = 0
+    for i in range(3, limit):
+        if i%3 == 0 or i%5 ==0:
+            result += i
+    return result
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -33,4 +41,5 @@ if __name__ == '__main__':
         print "Sum({0}): 0".format(number)
     result = find_sum(number)
     print "Sum({0}): {1}".format(number, result)
+    print "Sum({0}): {1}".format(number, inefficient_sum(number))
 
