@@ -34,6 +34,12 @@ getMaxPal(unsigned start, unsigned min_limit, unsigned long maxpal)
 	for (unsigned idx = start; idx >= min_limit; --idx)
 	{
 		unsigned long current_res = start * idx;
+		
+		if (!(current_res % 10))	//if current res ends with 0, it cannot be a palindrome
+		{
+			continue;
+		}
+
 		if (computed_values.find(current_res) != computed_values.end())
 		{
 			continue;	//this was already computed
