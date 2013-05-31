@@ -113,6 +113,7 @@ largest_product(std::string const& large_number)
 	//we'll work with chars, to avoid conversions string int
 	Index start = 0;
 	Index offset = 0;	//number of good digits already in sequence; find should start at start+offset, to optimize the search
+	unsigned counter = 0;	//how many multiplications were made
 	while (start < len)
 	{
 		//find first sequence of 5 digits not containing 0
@@ -133,6 +134,7 @@ largest_product(std::string const& large_number)
 		int e = large_number.at(start+4);
 		
 		product = (a-48)*(b-48)*(c-48)*(d-48)*(e-48);
+		++counter;
 		if (product > max_product)
 		{
 			std::cout << "Interim: "<< start <<" sequence: "<<large_number.substr(start, 5)<<" product: "<<product<<"\n";
@@ -172,6 +174,7 @@ largest_product(std::string const& large_number)
 	}
 	
 	std::cout << "Start of biggest sequence: "<< max_start <<" sequence: "<<large_number.substr(max_start, 5)<<"\n";
+	std::cout << "No. of multiplications "<<counter<<"\n";
 	
 	return max_product;
 }
