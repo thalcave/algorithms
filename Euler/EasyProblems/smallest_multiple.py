@@ -36,6 +36,7 @@ def primesuntil(n):
 
 def check_division(number, limit):
     """Checks if number is evenly divisible with range(2,limit)"""
+    #all() returns True if all elements from list are true
     return all(number%idx == 0 for idx in range(2,limit))
 
 def get_smallest_multiple(limit):
