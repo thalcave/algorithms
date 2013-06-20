@@ -21,6 +21,7 @@ def eratostene_sieve(limit):
         if is_prime[num] == 1:
             set_prime(num, limit, is_prime)
 
+    #lambda expression
     primes = [num for num in xrange(limit) if is_prime[num]]
     print "No. of primes until {0}: {1}".format(limit, len(primes))
 
