@@ -26,6 +26,9 @@ testPowerOf2(unsigned long number)
 	
 	std::cout<<number<<"/2 = "<<(number >> 1) <<"\n";
 	std::cout<<number<<"*2 = "<<(number << 1) <<"\n";
+	
+	// number >> 2 = number * 2^n
+	// number << 2 = number / 2^n
 }
 
 void
@@ -40,7 +43,7 @@ getPower(unsigned long num)
 	
 	while (number && no_bits <= 1)
 	{
-		if ((number & 1))	//least significat bit is 1
+		if ((number & 1))	//least significant bit is 1
 		{
 			++no_bits;
 			pos = cidx;
