@@ -1,6 +1,7 @@
 #include "GenVector.hpp"
 #include <iostream>
 #include <iterator>
+#include <stdlib.h>
 
 IntVector
 generateVector() 
