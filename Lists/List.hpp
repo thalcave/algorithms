@@ -21,7 +21,13 @@ public:
 	//add at the end 'val' and link it with 'where' element
 	void insertCycle(unsigned val, unsigned where);
 	
-	bool detectCycle() const;
+	bool hasCycle() const;
+	
+	//size of list
+	unsigned size() const;
+	
+	typedef Node* NodePtr;
+	const NodePtr& getHead() const { return head; }
 private:
 	Node* head;
 };

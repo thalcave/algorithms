@@ -8,7 +8,7 @@ List::List()
 
 List::~List()
 {
-	if (detectCycle())
+	if (hasCycle())
 	{
 		std::cerr<<"Cycle detected\n";
 		return;
@@ -24,7 +24,7 @@ List::~List()
 }
 
 bool
-List::detectCycle() const
+List::hasCycle() const
 {
 	//detect if a list has cycle: 
 	// start with p1, step 1
@@ -58,7 +58,7 @@ List::detectCycle() const
 			break;
 		}
 		
-		std::cout<<"*p1: "<<p1->val<<" *p2: "<<p2->val<<"\n";
+		//std::cout<<"*p1: "<<p1->val<<" *p2: "<<p2->val<<"\n";
 		
 		if (p1 == p2)
 		{
@@ -210,4 +210,19 @@ List::insertCycle(unsigned val, unsigned where)
 	cnode->next = tmp;
 	tmp->next = wnode;
 }
+
+unsigned
+List::size() const
+{
+	unsigned csize = 0;
+	Node* cnode = head;
+	while (cnode)
+	{
+		++csize;
+		cnode = cnode->next;
+	}
+	
+	return csize;
+}
+
 
