@@ -27,8 +27,8 @@ testPowerOf2(unsigned long number)
 	std::cout<<number<<"/2 = "<<(number >> 1) <<"\n";
 	std::cout<<number<<"*2 = "<<(number << 1) <<"\n";
 	
-	// number >> 2 = number * 2^n
-	// number << 2 = number / 2^n
+	// number >> n = number / 2^n
+	// number << n = number * 2^n
 }
 
 void

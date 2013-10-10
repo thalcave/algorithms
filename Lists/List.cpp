@@ -8,6 +8,12 @@ List::List()
 
 List::~List()
 {
+	if (detectCycle())
+	{
+		std::cerr<<"Cycle detected\n";
+		return;
+	}
+	
 	Node* cnode = head;
 	while (cnode)
 	{
@@ -15,6 +21,51 @@ List::~List()
 		cnode = cnode->next;
 		delete prev;
 	}
+}
+
+bool
+List::detectCycle() const
+{
+	//detect if a list has cycle: 
+	// start with p1, step 1
+	// 		p2, step 2
+	
+	if (!head)
+	{
+		return false;	//empty list has no cycle
+	}
+	
+	Node* p1 = head;
+	Node* p2 = head;
+	
+	do
+	{
+		p1 = p1->next;
+		if (!p1)
+		{	//no cycle
+			break;
+		}
+		
+		//move p2 with 2 positions
+		p2 = p2->next;
+		if (!p2)
+		{
+			break;
+		}
+		p2 = p2->next;
+		if (!p2)
+		{
+			break;
+		}
+		
+		std::cout<<"*p1: "<<p1->val<<" *p2: "<<p2->val<<"\n";
+		
+		if (p1 == p2)
+		{
+			std::cout<<"found cycle: "<<p1->val<<"\n";
+			return true;	//cycle detected
+		}
+	} while (true);
 }
 
 void
@@ -33,6 +84,32 @@ List::addElem(unsigned v)
 	}
 
 	cnode->next = new Node(v);
+}
+
+bool
+List::insertElem(unsigned val, unsigned after)
+{
+	//search for after; if not found, return false
+	if (!head)
+	{
+		return false;
+	}
+	
+	Node* cnode = head;
+	while (cnode && cnode->val != after)
+	{
+		cnode = cnode->next;
+	}
+	
+	if (cnode)
+	{
+		Node* tmp = new Node(val);
+		tmp->next = cnode->next;
+		cnode->next = tmp;
+		return true;
+	}
+	
+	return false;
 }
 
 void
@@ -90,15 +167,47 @@ void
 List::reverse()
 {
 	Node* cnode = head;
-	Node* new_root = 0;
+	Node* prev = 0;
 
 	while (cnode)
 	{
 		Node* next = cnode->next;
-		cnode->next = new_root;
-		new_root = cnode;
+		cnode->next = prev;
+		prev = cnode;
 		cnode = next;
 	}
-	head = new_root;
+	head = prev;
+}
+
+void 
+List::insertCycle(unsigned val, unsigned where)
+{
+	if (!head)
+	{
+		return;
+	}
+	
+	Node* cnode = head;
+	Node* wnode = 0;
+	
+	while (cnode->next)
+	{
+		if (cnode->val == where)
+		{
+			wnode = cnode;
+		}
+
+		cnode = cnode->next;
+	}
+	
+	if (!wnode)
+	{
+		return;
+	}
+	
+	//cnode is last element of list
+	Node* tmp = new Node(val);
+	cnode->next = tmp;
+	tmp->next = wnode;
 }
 

@@ -44,6 +44,19 @@ int main()
 	std::cout<<"after reverse\n";
 	mlist.print();
 	
+	mlist.insertElem(10, 13);
+	std::cout<<"after insert (10,13)\n";
+	mlist.print();
 	
+	mlist.insertElem(8, 13);
+	std::cout<<"after insert (8,13)\n";
+	mlist.print();
+	
+	mlist.reverse();
+	std::cout<<"after reverse\n";
+	mlist.print();
+	
+	mlist.insertCycle(5, 13);
+
 	return 0;
 }
