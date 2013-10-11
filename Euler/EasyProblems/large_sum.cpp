@@ -62,6 +62,7 @@ convertString(std::string const& str)
 	try
 	{
 		unsigned long nr = boost::lexical_cast<unsigned long>(str);
+		return nr;
         } catch(boost::bad_lexical_cast const& bc) {
                 std::cout<<"caught error: "<<bc.what()<<" str: "<<str<<"\n";
 		throw;

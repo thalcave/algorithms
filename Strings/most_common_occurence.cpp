@@ -1,13 +1,66 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 
 /**
  * most common occurence of a letter in a string
  * - parse string, count letters (65-90: A-Z; 97-122 a-z)
  * - find a way to keep the max.
+ * 
+ * modified: 10 most encountered letters
  */
+
+typedef std::multimap<unsigned, unsigned> LetterOccurrence;
+typedef LetterOccurrence::iterator LetterOccurrenceIt;
+LetterOccurrence letters_occurrence;
+
+/*
+ * search for 'count' in multimap (key)
+ * if found
+ * 	if 'letter' matches (value)
+ * 		increment key
+ * 	else
+ * 		insert(count, letter)
+ * else
+ * 	insert (count, letter)
+ * 	
+ */
+void
+addLetterOccurence(unsigned count, unsigned letter)
+{
+	std::pair<LetterOccurrenceIt, LetterOccurrenceIt> ret = letters_occurrence.equal_range(count);
+	LetterOccurrenceIt res_it = ret.first;
+	for (; res_it != ret.second; ++res_it)
+	{
+		if (res_it->second == letter)	//found the letter
+		{
+			//remove old (key,value)
+			letters_occurrence.erase(res_it);
+			letters_occurrence.insert(std::make_pair(++count, letter));
+			
+			std::cout<<"Updated letter: "<<letter<<" occurence: "<<count<<"\n";
+			return;
+		}
+	}
+	
+	letters_occurrence.insert(std::make_pair(++count, letter));
+	std::cout<<"Added letter: "<<letter<<" occurence: "<<count<<"\n";
+	return;
+}
+
+void
+mostTenOccurences()
+{
+	std::cout<<"Ten most occurrences:\n";
+	LetterOccurrence::const_reverse_iterator crit = letters_occurrence.rbegin();
+	unsigned count = 10;
+	for (; crit != letters_occurrence.rend() && count; ++crit, --count)
+	{
+		std::cout<<static_cast<char>(crit->second)<<" --> "<<crit->first<<"\n";
+	}
+}
 
 void
 mostCommonOccurence(std::string const& str)
@@ -53,15 +106,20 @@ mostCommonOccurence(std::string const& str)
 			continue;	//not a letter
 		}
 		
-		++occurence_vector.at(idx);
+		//take prev_val, to search in multimap
+		unsigned prev_val = occurence_vector.at(idx)++;
+		
 		if (occurence_vector.at(idx) > max_occurence)
 		{
 			max_occurence = occurence_vector.at(idx);
 			most_char = ch;
 		}
+		
+		addLetterOccurence(prev_val, ch);
 	}
 	
 	std::cout<<"Most common occurence: "<<most_char<< " : "<<max_occurence<<"\n";
+	mostTenOccurences();
 }
 
 int main(int argc, char* argv[])
