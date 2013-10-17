@@ -1,4 +1,4 @@
-#include "GenVector.hpp"
+#include "../common/GenVector.hpp"
 #include <iterator>
 #include <iostream>
 
