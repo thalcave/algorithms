@@ -7,7 +7,7 @@
 void
 getPairs(std::vector<int> v, long int k)
 {
-	//values from v, for latest retrieval
+	//values from v, for later retrieval
 	std::map<int, unsigned> vmap;
 	for (unsigned i = 0; i < v.size(); ++i)
 	{
@@ -30,6 +30,14 @@ getPairs(std::vector<int> v, long int k)
 		}
 	}
 }
+
+/* 2nd approach: 
+ * 	- sort vector
+ * 	- keep indices for start, end
+ * 	- if start + end = K --> found; ++start; --end;
+ * 	- if start + end < K --> ++start
+ * 	- if start + end > K --> --end
+*/
 
 int main()
 {

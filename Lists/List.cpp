@@ -38,6 +38,8 @@ List::hasCycle() const
 	Node* p1 = head;
 	Node* p2 = head;
 	
+	bool cycle = false;
+	
 	do
 	{
 		p1 = p1->next;
@@ -63,9 +65,26 @@ List::hasCycle() const
 		if (p1 == p2)
 		{
 			std::cout<<"found cycle: "<<p1->val<<"\n";
-			return true;	//cycle detected
+			cycle = true;
+			break;
 		}
 	} while (true);
+	
+	if (!cycle)
+	{
+		return false;
+	}
+	
+	//it has a cycle, find where it starts
+	//if we rewind p1 to head and then go with both ptrs at same pace, they will meet at loop start
+	p1 = head;
+	while (p1 != p2)
+	{
+		p1 = p1->next;
+		p2 = p2->next;
+	}
+	std::cout<<"cycle begins at: "<<p1->val<<"\n";
+	return true;
 }
 
 void

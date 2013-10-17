@@ -9,25 +9,25 @@ biggestSum(std::vector<int> vect_int)
 		return 0;
 	}
 
-	int max_so_far = vect_int.at(0);
-	int max_ending_here = vect_int.at(0);
+	int max_found = vect_int.at(0);
+	int current_sum = vect_int.at(0);
 
 	for(unsigned i = 1; i < vect_int.size(); ++i)
 	{
-		max_ending_here += vect_int.at(i);
-		if (max_ending_here < 0)
+		current_sum += vect_int.at(i);
+		if (current_sum < 0)
 		{
-			max_ending_here = 0;
+			current_sum = 0;	//start again
 		}
-		else if (max_so_far < max_ending_here)
+		else if (max_found < current_sum)
 		{
-			max_so_far  = max_ending_here;
+			max_found  = current_sum;
 		}
 
-		std::cout<<"max_so_far: "<<max_so_far<<"\n";
+		std::cout<<"max_found: "<<max_found<<"\n";
 	}
 
-	return max_so_far;
+	return max_found;
 }
 
 int main()

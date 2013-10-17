@@ -2,6 +2,7 @@
 #include <iostream>
 #include <queue>
 #include <stdexcept>
+#include <stdlib.h>
 
 void
 addNode(TreeNode* parent, unsigned val, bool left)
@@ -227,6 +228,52 @@ findClosestElem(TreeNode* node)
 	return (node->val - biggest_left < smallest_right - node->val) ? biggest_left : smallest_right;
 }
 
+unsigned found = 0;
+unsigned diff = -1;
+unsigned counter = 0;
+
+//find closest value
+void
+closestValue(TreeNode* node, unsigned val)
+{
+	//traverse the tree
+	//if val is found, return it
+	//record the min difference
+	if (!node)
+	{
+		return;
+	}
+	
+	++counter;
+	if (node->val == val)
+	{
+		found = val;
+		return;
+	}
+
+	unsigned cdiff = abs(node->val - val);
+	if (node->val > val)
+	{
+		if (cdiff < diff)
+		{
+			found = node->val;
+			diff = cdiff;
+		}
+		closestValue(node->left, val);
+
+	}
+	else
+	{
+		//node->val > val
+		if (cdiff < diff)
+		{
+			found = node->val;
+			diff = cdiff;
+		}
+		
+		closestValue(node->right, val);
+	}
+}
 
 int main()
 {
@@ -279,7 +326,18 @@ int main()
 
 	unsigned closest = findClosestElem(root);
 	std::cout<<"closest to root: "<<closest<<"\n";
+	
+	closestValue(root, 20);
+	std::cout<<"closest to 20: "<<found<<" diff:" <<diff<<" in "<<counter<<" traversals\n";
 
+	
+	found = 0;
+	diff = -1;
+	counter = 0;
+	closestValue(root, 12);
+	std::cout<<"closest to 12: "<<found<<" diff:" <<diff<<" in "<<counter<<" traversals\n";
+
+	
 	deleteTree(root);
 	
 	return 0;
