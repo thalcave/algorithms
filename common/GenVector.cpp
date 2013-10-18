@@ -3,22 +3,23 @@
 #include <iterator>
 #include <stdlib.h>
 
+#include "Random.hpp"
+
 IntVector
 generateVector() 
 {
-	unsigned iseed = (unsigned)time(NULL);
-	srand(iseed);
-
+	Random rand;
+	
 	//generate size
-	unsigned n = 1 + (int) (30.0 * (rand() / (RAND_MAX + 1.0)));
+	unsigned n = rand.getRandom(1, 30);
+	//unsigned n = 1 + (int) (30.0 * (rand() / (RAND_MAX + 1.0)));
 	std::cout<<"size: "<<n<<"\n";
 
 	IntVector vect_int;
 	for (unsigned i = 0; i < n; ++i)
 	{
-		vect_int.push_back(1 + (int)(50000.0 * (rand()/(RAND_MAX + 1.0))));
-		//:w
-		//std::cout<<"v[i]="<<vect_int.at(i)<<"\n";
+		//vect_int.push_back(1 + (int)(50000.0 * (rand()/(RAND_MAX + 1.0))));
+		vect_int.push_back(rand.getRandom(0, 50000));
 
 	}
 	return vect_int;
