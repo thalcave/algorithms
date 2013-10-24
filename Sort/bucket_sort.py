@@ -31,9 +31,10 @@ if __name__ == '__main__':
     copy = list(mlist)
 
     #initialise BUCKETS buckets
-    bucket_list = list()
-    for _ in range(BUCKETS):
-        bucket_list.append(list())
+    #bucket_list = list()
+    #for _ in range(BUCKETS):
+    #    bucket_list.append(list())
+    bucket_list = [list() for _ in range(BUCKETS)]
 
     #scatter
     for x in mlist:
@@ -48,9 +49,10 @@ if __name__ == '__main__':
     #gather
     mlist[:] = [] #clear list
 
-    for bucket in bucket_list:
-        for x in bucket:
-            mlist.append(x)
+    #for bucket in bucket_list:
+    #    for x in bucket:
+    #        mlist.append(x)
+    mlist = [x for bucket in bucket_list for x in bucket]
 
     print "Sorted list: {0}".format(mlist)
 
