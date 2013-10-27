@@ -28,6 +28,9 @@ public:
 	
 	typedef Node* NodePtr;
 	const NodePtr& getHead() const { return head; }
+	
+	//eliminate duplicates in a list
+	void elimDuplicates();
 private:
 	Node* head;
 };

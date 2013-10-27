@@ -167,6 +167,26 @@ int main()
 		l2.print();
 		convergentLists(l1, l2);
 	}
+	
+	{
+		std::cout<<"Test dups\n";
+		List l1;
+		l1.addElem(1);
+		l1.addElem(3);
+		l1.addElem(5);
+		l1.addElem(1);
+		l1.addElem(1);
+		l1.addElem(8);
+		l1.addElem(5);
+		l1.addElem(5);
+		l1.addElem(6);
+		l1.addElem(8);
+		l1.addElem(3);
+		l1.print();
+		l1.elimDuplicates();
+		l1.print();
+	}
+
 
 	return 0;
 }

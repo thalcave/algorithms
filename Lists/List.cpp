@@ -244,4 +244,49 @@ List::size() const
 	return csize;
 }
 
+void
+List::elimDuplicates()
+{
+	//scan list with a normal pointer
+	//search in previous nodes for duplicates
+	Node* cnode = head;
+	if (!cnode)
+	{
+		return;
+	}
+	cnode = cnode->next;
+	
+	while (cnode)
+	{
+		Node* runner = head;
+		Node* prev = 0;
+		while (runner != cnode)
+		{
+			if (runner->val == cnode->val)
+			{
+				if (!prev)
+				{
+					//delete head
+					head = head->next;
+					delete runner;
+					runner = head;
+				}
+				else
+				{
+					//delete runner
+					Node* tmp = runner;
+					runner = runner->next;
+					prev->next = runner;
+					delete tmp;
+				}
+			}
+			else
+			{
+				prev = runner;
+				runner = runner->next;
+			}
+		}
+		cnode = cnode->next;
+	}
+}
 
