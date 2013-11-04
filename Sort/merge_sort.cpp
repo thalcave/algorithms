@@ -73,10 +73,10 @@ mergeSort(IntVector& vect_int)
     IntVector left(vect_int.begin(), vect_int.begin() + middle);
     IntVector right(vect_int.begin() + middle , vect_int.end());
 
-    left = mergeSort(left);
-    right = mergeSort(right);
+    //left = mergeSort(left);
+    //right = mergeSort(right);
 
-    return merge(left, right);
+    return merge(mergeSort(left), mergeSort(right));
 }
 
 int main()

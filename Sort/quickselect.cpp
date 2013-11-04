@@ -21,10 +21,10 @@ partition(IntVector& vect_int, unsigned left, unsigned right, unsigned k)
 	{
 		throw std::runtime_error("empty vector");
 	}
-	if (vect_int.size() == 1)
+	/*if (vect_int.size() == 1)
 	{
-		return vect_int.at(1);
-	}
+		return vect_int.at(0);
+	}*/
 	
 	unsigned pivot = vect_int.at(k);
 	unsigned store_index = left;

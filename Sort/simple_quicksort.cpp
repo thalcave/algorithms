@@ -1,6 +1,7 @@
 #include "../common/GenVector.hpp"
 #include <iterator>
 #include <iostream>
+#include <stdexcept>
 
 
 /*void
@@ -25,6 +26,61 @@ concatenate(IntVector const& left, unsigned pivot, IntVector const& right)
     //printVector(res);
     //std::cout<<"###################################\n";
     return res;
+}
+
+/*
+ * partition an array in 2: left is smaller than pivot, right is greater
+ * 
+ */
+unsigned
+partition(IntVector& vect_int, unsigned left, unsigned right, unsigned k)
+{
+	if (vect_int.empty())
+	{
+		throw std::runtime_error("empty vector");
+	}
+	
+	unsigned pivot = vect_int.at(k);
+	unsigned store_index = left;
+	
+	//swap pivot with last element
+	std::swap(vect_int.at(k), vect_int.at(right));
+	
+	for (unsigned i = left; i < right; ++i)
+	{
+		if (vect_int.at(i) < pivot)
+		{
+			std::swap(vect_int.at(i), vect_int.at(store_index));
+			++store_index;
+		}
+	}
+	
+	//move pivot to its final place
+	std::swap(vect_int.at(right), vect_int.at(store_index));
+	return store_index;
+}
+
+
+void
+inPlaceQuickSort(IntVector& vect_int, unsigned left, unsigned right)
+{
+	if (left >= right)
+	{
+		return;
+	}
+	
+	IntVector::size_type pivot = (left + right)/2;
+	unsigned piv_new_idx = partition(vect_int, left, right, pivot);
+	//std::cout<<"new idx: "<<piv_new_idx<<"\n";
+	
+	if (!piv_new_idx)
+	{
+		return;
+	}
+	
+	inPlaceQuickSort(vect_int, left, piv_new_idx - 1);
+	inPlaceQuickSort(vect_int, piv_new_idx + 1, right);
+	
 }
 
 IntVector
@@ -68,7 +124,13 @@ int main()
 {
 	IntVector vect_int = generateVector();
 	printVector(vect_int);
-	IntVector sorted = simpleQuickSort(vect_int);
+	
+	IntVector tmp(vect_int);
+	IntVector sorted = simpleQuickSort(tmp);
 	printVector(sorted);
+	
+	inPlaceQuickSort(vect_int, 0, vect_int.size() - 1);
+	printVector(vect_int);
+	
 	return 0;
 }
