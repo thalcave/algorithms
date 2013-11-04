@@ -3,6 +3,7 @@
 #include <queue>
 #include <stdexcept>
 #include <stdlib.h>
+#include "../common/GenVector.hpp"
 
 void
 addNode(TreeNode* parent, unsigned val, bool left)
@@ -78,10 +79,12 @@ bfs(TreeNode* root)
 			std::cout<<cnode->val<<" ";
 			if (cnode->left)
 			{
+				//std::cout<<"left child: "<<cnode->left->val<<"\n";
 				nqueue.push(cnode->left);
 			}
 			if (cnode->right)
 			{
+				//std::cout<<"right child: "<<cnode->right->val<<"\n";
 				nqueue.push(cnode->right);
 			}
 		}
@@ -252,27 +255,64 @@ closestValue(TreeNode* node, unsigned val)
 	}
 
 	unsigned cdiff = abs(node->val - val);
+	if (cdiff < diff)
+	{
+		found = node->val;
+		diff = cdiff;
+	}
+
 	if (node->val > val)
 	{
-		if (cdiff < diff)
-		{
-			found = node->val;
-			diff = cdiff;
-		}
 		closestValue(node->left, val);
 
 	}
 	else
 	{
-		//node->val > val
-		if (cdiff < diff)
-		{
-			found = node->val;
-			diff = cdiff;
-		}
-		
 		closestValue(node->right, val);
 	}
+}
+
+unsigned
+maxDepth(TreeNode* node)
+{
+	if (!node)
+	{
+		return 0;
+	}
+	
+	return 1 + std::max(maxDepth(node->left), maxDepth(node->right));
+}
+
+unsigned
+minDepth(TreeNode* node)
+{
+	if (!node)
+	{
+		return 0;
+	}
+	
+	return 1 + std::min(minDepth(node->left), minDepth(node->right));
+}
+
+//print all possible paths from root to leaves
+void
+allPossiblePaths(TreeNode* node, IntVector prev_values)
+{
+	if (!node)
+	{
+		//printVector(prev_values);
+		return;
+	}
+	
+	prev_values.push_back(node->val);
+	
+	if (!node->left && !node->right)
+	{
+		printVector(prev_values);
+	}
+	
+	allPossiblePaths(node->left, prev_values);
+	allPossiblePaths(node->right, prev_values);
 }
 
 int main()
@@ -337,6 +377,12 @@ int main()
 	closestValue(root, 12);
 	std::cout<<"closest to 12: "<<found<<" diff:" <<diff<<" in "<<counter<<" traversals\n";
 
+	std::cout<<"max level: "<<maxDepth(root)<<"\n";
+	std::cout<<"min level: "<<minDepth(root)<<"\n";
+	
+	std::cout<<"all possible paths:\n";
+	IntVector tmp;
+	allPossiblePaths(root, tmp);
 	
 	deleteTree(root);
 	
