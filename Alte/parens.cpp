@@ -3,12 +3,15 @@
 #include <string.h>
 
 /*
- * P2 Print all valid combinations of n-pairs of parens
+ * Problem: Print all valid combinations of n-pairs of parens
 
 n: 3
 S: ()()(), ((())), ()(()), (())()
 
-recursive approach
+Solution: recursive approach:
+	no. of ( parens left
+	no. of ) parens left
+	string to hold result
 */
 
 //left = how many ( parens are left

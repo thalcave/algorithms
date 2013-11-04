@@ -1,6 +1,23 @@
 #include <string>
 #include <iostream>
 
+/*
+ * Problem: find longest palindrome in a string
+ * Solution: 
+ * - iterate on string
+ * - from current index, go left & right as long as a[left] == a[right]
+ * 
+ * start from 2nd char:
+ * 		while:
+ * 			center = current_index/2
+ * 			left = center - 1
+ * 			right = center + 1
+ * 			while is_palindrome
+ * 				--left
+ * 				++right
+ * 
+ * etc
+ */
 
 using namespace std;
 

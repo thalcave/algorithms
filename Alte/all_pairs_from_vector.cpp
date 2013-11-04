@@ -2,7 +2,7 @@
 #include <map>
 #include <iostream>
 
-//given a number K and a vector, find all pairs from vector which sums to value K
+//Problem: given a number K and a vector, find all pairs from vector which sums to value K
 
 void
 getPairs(std::vector<int> v, long int k)
