@@ -58,7 +58,7 @@ int main()
 	{
 		clock_t ticks = clock();
 		
-		int res = binary_search(vect, 0, vect.size(), searched);
+		int res = binary_search(vect, 0, vect.size()-1, searched);
 		std::cout<<"Res="<<res<<"\n";
 		std::cout<<"counter="<<counter<<"\n";		
 		std::cout << "My binary_search: "<< clock() - ticks << std::endl;

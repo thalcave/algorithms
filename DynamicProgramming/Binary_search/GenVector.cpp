@@ -23,7 +23,8 @@ generateVector(unsigned& searched)
 	}
 
 	//generate search key
-	unsigned spos = 1 + (int) (n * (rand() / (RAND_MAX + 1.0)));
+	unsigned spos = 1 + (int) ((n-1) * (rand() / (RAND_MAX + 1.0)));
+	std::cout<<"spos: "<<spos<<"\n";
 	searched = vect_int.at(spos);
 	return vect_int;
 }
