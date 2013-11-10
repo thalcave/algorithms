@@ -31,12 +31,16 @@ generateSubsets(unsigned number)
 		set.push_back(i);
 	}
 	
-	printVector(set);
+	//printVector(set);
+	
+	IntVector current_set;
+	
 	
 	unsigned limit = (1 << (number+1)) - 1;
 	for (unsigned i = 0; i <= limit; ++i)
 	{
-		IntVector current_set;
+		current_set.clear();
+		
 		unsigned cnum = i;
 		unsigned count = 0;
 		
@@ -51,13 +55,14 @@ generateSubsets(unsigned number)
 			++count;
 		}
 		
-		printVector(current_set);
+		//printVector(current_set);
 	}
 }
 
 void
 processSolution(IntVector const& subset)
 {
+	return;
 	std::cout<<"{";
 	for (unsigned i =0; i < subset.size(); ++i)
 	{
@@ -100,12 +105,20 @@ int main(int argc, char* argv[])
 	}
 	
 	unsigned long number = boost::lexical_cast<unsigned long>(std::string(argv[1]));
-	generateSubsets(number);
 	
+	{
+		clock_t ticks = clock();
+		generateSubsets(number);
+		std::cout << "Bits: "<< clock() - ticks << std::endl;
+	}
+
 	
-	std::cout<<"Backtracking\n";
-	IntVector cset;
-	generateBacktrack(cset, number+1);
+	{
+		clock_t ticks = clock();
+		IntVector cset;
+		generateBacktrack(cset, number+1);
+		std::cout << "Back: "<< clock() - ticks << std::endl;
+	}
 	
 	
 	return 0;
