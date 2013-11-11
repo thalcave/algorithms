@@ -3,10 +3,12 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <stack>
 
 /*
  * Problem: generate all subsets of S = {0..N}
  * Solution: use a bitset
+ * Solution: use backtracking
  */
 
 typedef std::vector<unsigned> IntVector;
@@ -96,6 +98,44 @@ generateBacktrack(IntVector& current_set, unsigned n)
 	}
 }
 
+void
+backtrackingIterative(unsigned n)
+{
+	IntVector current_set, temp;
+	std::stack<IntVector> solution;
+	
+	solution.push(current_set);
+	
+	while (!solution.empty())
+	{
+		if (solution.top().size() == n)
+		{
+			//std::cout<<"Found a subset\n";
+			processSolution(solution.top());
+			solution.pop();
+			
+			if (solution.empty())
+			{
+				break;
+			}
+		}
+		else
+		{
+			temp = solution.top();
+			temp.push_back(0);
+			solution.push(temp);
+			//std::cout<<"Pushed 1: "; printVector(temp);
+			continue;
+		}
+		
+		temp = solution.top();
+		solution.pop();
+		temp.push_back(1);
+		solution.push(temp);
+		//std::cout<<"Pushed 2: "; printVector(temp);
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	if (argc != 2)
@@ -120,6 +160,11 @@ int main(int argc, char* argv[])
 		std::cout << "Back: "<< clock() - ticks << std::endl;
 	}
 	
+	{
+		clock_t ticks = clock();
+		backtrackingIterative(number+1);
+		std::cout << "Iter: "<< clock() - ticks << std::endl;
+	}
 	
 	return 0;
 }
