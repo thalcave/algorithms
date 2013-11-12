@@ -33,7 +33,7 @@ generateSubsets(unsigned number)
 		set.push_back(i);
 	}
 	
-	//printVector(set);
+	printVector(set);
 	
 	IntVector current_set;
 	
@@ -57,14 +57,13 @@ generateSubsets(unsigned number)
 			++count;
 		}
 		
-		//printVector(current_set);
+		printVector(current_set);
 	}
 }
 
 void
 processSolution(IntVector const& subset)
 {
-	return;
 	std::cout<<"{";
 	for (unsigned i =0; i < subset.size(); ++i)
 	{
