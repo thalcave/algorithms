@@ -315,6 +315,30 @@ allPossiblePaths(TreeNode* node, IntVector prev_values)
 	allPossiblePaths(node->right, prev_values);
 }
 
+//count how many nodes are in [start, end] range
+unsigned
+nodesInRange(TreeNode* node, unsigned start, unsigned end)
+{
+	if (node)
+	{
+		//std::cout<<"nodesInRange\n";
+		
+		if (node->val > end)	//go only on left
+		{
+			return nodesInRange(node->left, start, end);
+		}
+		
+		if (node->val < start)	//go only on right
+		{
+			return nodesInRange(node->right, start, end);
+		}
+
+		return 1 + nodesInRange(node->left, start, end) + nodesInRange(node->right, start, end);
+	}
+	
+	return 0;
+}
+
 int main()
 {
 	//create tree node
@@ -383,6 +407,12 @@ int main()
 	std::cout<<"all possible paths:\n";
 	IntVector tmp;
 	allPossiblePaths(root, tmp);
+	
+	{
+		std::cout<<"-----------------------------------\n";
+		bfs(root);
+		std::cout<<"Nodes in range [10..15]: "<<nodesInRange(root, 10, 15)<<"\n";
+	}
 	
 	deleteTree(root);
 	
