@@ -34,6 +34,8 @@ if __name__ == '__main__':
         num = int(mrand.get_number() * cmax)
         nums[num], nums[cmax] = nums[cmax], nums[num]
         cmax -= 1
+        print nums
 
+    print "Final:"
     print nums
 
